@@ -1,7 +1,9 @@
 const fs = require("fs");
+const directory = "./data"
+const file = "/exemplo.csv"
 
 function readFile() {
-  const csv = fs.readFileSync("./data/exemplo.csv", "utf-8");
+  const csv = fs.readFileSync(directory+file, "utf-8");
   return csv;
 }
 
