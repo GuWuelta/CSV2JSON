@@ -27,6 +27,7 @@ function convertFile(csv) {
 function createJsonFile(arr, csv) {
   arr = convertFile(csv);
   console.log(arr);
+  console.log("O arquivo foi convertido e adicionado na pasta 'output'!");
   return fs.writeFileSync("./output/file.json", JSON.stringify(arr));
 }
 
