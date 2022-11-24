@@ -17,7 +17,5 @@ fs.readFile("./data/exemplo.csv", "utf-8", function (err, csv) {
   }
   console.log(arr);
 
-  return arr;
+  fs.writeFileSync("./output/file.json", JSON.stringify(arr));
 });
-
-fs.writeFile("./output/", JSON.stringify(arr), function (arr) {});
