@@ -1,6 +1,6 @@
 const fs = require("fs");
 const directory = "./input";
-const file = directory + "/exemplo.json";
+const file = directory + "/exemplo.csv";
 
 function checkDirectory(directory) {
   let directoryExists = true;
@@ -20,10 +20,10 @@ function checkFile(file) {
     return (fileExists = false);
   }
   if (fileExists) {
-    const subArray = file.split('.')
-    if (subArray[2] != 'csv') {
-      console.log('O arquivo não é csv!')
-      return fileExists = false;
+    const subArray = file.split(".");
+    if (subArray[2] != "csv") {
+      console.log("O arquivo não é csv!");
+      return (fileExists = false);
     }
   }
   console.log(`Arquivo "${file}" encontrado!`);
@@ -50,6 +50,7 @@ function convertFile(csv) {
   const lines = csv.split("\n");
   const headers = lines[0].split(",");
   const data = lines.slice(1).map((linha) => linha.split(","));
+  data.pop();
 
   const arr = [];
 
@@ -66,13 +67,13 @@ function convertFile(csv) {
 function createJsonFile(arr, csv) {
   arr = convertFile(csv);
 
-if (arr === null) return console.log("Houve um erro na conversão!");
+  if (arr === null) return console.log("Houve um erro na conversão!");
 
-    console.log(arr);
-    console.log(
-      "\nO arquivo foi convertido para o formato JSON e adicionado na pasta 'output'!"
-    );
-    return fs.writeFileSync("./output/file.json", JSON.stringify(arr));
+  console.log(arr);
+  console.log(
+    "\nO arquivo foi convertido para o formato JSON e adicionado na pasta 'output'!"
+  );
+  return fs.writeFileSync("./output/file.json", JSON.stringify(arr));
 }
 
 createJsonFile();
