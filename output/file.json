@@ -1,1 +1,22 @@
-[{"Nome":"José","Stack":"FRONT"},{"Nome":"Maria","Stack":"BACK"},{"Nome":"Lucas","Stack":"FRONT"},{"Nome":"Silvia","Stack":"FRONT"},{"Nome":"Adriana","Stack":"BACK"}]
+[
+  {
+    "Nome": "José",
+    "Stack\r": "FRONT\r"
+  },
+  {
+    "Nome": "Maria",
+    "Stack\r": "BACK\r"
+  },
+  {
+    "Nome": "Lucas",
+    "Stack\r": "FRONT\r"
+  },
+  {
+    "Nome": "Silvia",
+    "Stack\r": "FRONT\r"
+  },
+  {
+    "Nome": "Adriana",
+    "Stack\r": "BACK\r"
+  }
+]

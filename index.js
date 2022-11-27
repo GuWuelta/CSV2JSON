@@ -73,7 +73,7 @@ function createJsonFile(arr, csv) {
   console.log(
     "\nO arquivo foi convertido para o formato JSON e adicionado na pasta 'output'!"
   );
-  return fs.writeFileSync("./output/file.json", JSON.stringify(arr));
+  return fs.writeFileSync("./output/file.json", JSON.stringify(arr, null, 2));
 }
 
 createJsonFile();
