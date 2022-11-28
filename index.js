@@ -3,39 +3,39 @@ const directory = "./input";
 const file = directory + "/exemplo.csv";
 
 function checkDirectory(directory) {
-  let directoryExists = true;
-  if (!fs.existsSync(directory)) {
-    directoryExists = false;
-    return console.log(`Diretório "${directory}" não encontrado!`);
+  let directoryExists = false;
+  if (fs.existsSync(directory)) {
+    console.log(`Diretório "${directory}" encontrado!`);
+    return directoryExists = true;
   }
 
-  console.log(`Diretório "${directory}" encontrado!`);
+  console.log(`Diretório "${directory}" não encontrado!`);
   return directoryExists;
 }
 
 function checkFile(file) {
-  let fileExists = true;
-  if (!fs.existsSync(file)) {
-    console.log(`Arquivo "${file}" não encontrado!`);
-    return (fileExists = false);
+  let fileExists = false;
+  if (fs.existsSync(file)) {
+    console.log(`Arquivo "${file}" encontrado!`);
+    return (fileExists = true);
   }
-  if (fileExists) {
+  if (fileExists === true) {
     const subArray = file.split(".");
     if (subArray[2] != "csv") {
       console.log("O arquivo não é csv!");
       return (fileExists = false);
     }
   }
-  console.log(`Arquivo "${file}" encontrado!`);
+  console.log(`Arquivo "${file}" não encontrado!`);
   return fileExists;
 }
 
 function readFile(directoryExists, fileExists) {
   directoryExists = checkDirectory(directory);
 
-  if (directoryExists) fileExists = checkFile(file);
+  if (directoryExists === true) fileExists = checkFile(file);
 
-  if (!fileExists) return null;
+  if (fileExists === false) return null;
 
   const csv = fs.readFileSync(file, "utf-8");
   console.log(`\nConteúdo do arquivo:\n${csv}\n`);
