@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 const directory = "./input";
 const file = directory + "/exemplo.csv";
 
@@ -19,23 +20,27 @@ function checkFile(file) {
     console.log(`Arquivo "${file}" encontrado!`);
     return (fileExists = true);
   }
+  console.log(`Arquivo "${file}" não encontrado!`);
+  return fileExists;
+}
+
+function checkFileExtension(file) {
+  let fileExists = checkFile(file)
   if (fileExists === true) {
-    const subArray = file.split(".");
-    if (subArray[2] != "csv") {
+    if (path.extname(file) != ".csv") {
       console.log("O arquivo não é csv!");
       return (fileExists = false);
     }
   }
-  console.log(`Arquivo "${file}" não encontrado!`);
   return fileExists;
 }
 
 function readFile(directoryExists, fileExists) {
   directoryExists = checkDirectory(directory);
 
-  if (directoryExists === true) fileExists = checkFile(file);
+  if (directoryExists) fileExists = checkFileExtension(file);
 
-  if (fileExists === false) return null;
+  if (!fileExists) return null;
 
   const csv = fs.readFileSync(file, "utf-8");
   console.log(`\nConteúdo do arquivo:\n${csv}\n`);
