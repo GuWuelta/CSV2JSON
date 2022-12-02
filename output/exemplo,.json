@@ -1,22 +1,22 @@
 [
   {
     "Nome": "José",
-    "Stack": "FRONT"
+    "Stack\r": "FRONT\r"
   },
   {
     "Nome": "Maria",
-    "Stack": "BACK"
+    "Stack\r": "BACK\r"
   },
   {
     "Nome": "Lucas",
-    "Stack": "FRONT"
+    "Stack\r": "FRONT\r"
   },
   {
     "Nome": "Silvia",
-    "Stack": "FRONT"
+    "Stack\r": "FRONT\r"
   },
   {
     "Nome": "Adriana",
-    "Stack": "BACK"
+    "Stack\r": "BACK\r"
   }
 ]

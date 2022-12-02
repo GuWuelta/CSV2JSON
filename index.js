@@ -1,13 +1,14 @@
 const fs = require("fs");
 const path = require("path");
 const directory = "./input";
-const file = directory + "/exemplo.csv";
+let file;
+let directoryFiles;
 
 function checkDirectory(directory) {
   let directoryExists = false;
   if (fs.existsSync(directory)) {
     console.log(`Diretório "${directory}" encontrado!`);
-    return directoryExists = true;
+    return (directoryExists = true);
   }
 
   console.log(`Diretório "${directory}" não encontrado!`);
@@ -25,7 +26,7 @@ function checkFile(file) {
 }
 
 function checkFileExtension(file) {
-  let fileExists = checkFile(file)
+  let fileExists = checkFile(file);
   if (fileExists === true) {
     if (path.extname(file) != ".csv") {
       console.log("O arquivo não é csv!");
@@ -43,7 +44,6 @@ function readFile(directoryExists, fileExists) {
   if (!fileExists) return null;
 
   const csv = fs.readFileSync(file, "utf-8");
-  console.log(`\nConteúdo do arquivo:\n${csv}\n`);
   return csv;
 }
 
@@ -74,11 +74,22 @@ function createJsonFile(arr, csv) {
 
   if (arr === null) return console.log("Houve um erro na conversão!");
 
-  console.log(arr);
   console.log(
-    "\nO arquivo foi convertido para o formato JSON e adicionado na pasta 'output'!"
+    `O arquivo '${file2}' foi convertido para o formato JSON e adicionado na pasta 'output'!\n`
   );
-  return fs.writeFileSync("./output/file.json", JSON.stringify(arr, null, 2));
+  return fs.writeFileSync(
+    `./output/${file2.split(".csv")}.json`,
+    JSON.stringify(arr, null, 2)
+  );
 }
 
-createJsonFile();
+function run() {
+  directoryFiles = fs.readdirSync(directory, "utf-8");
+  for (arquivo of directoryFiles) {
+    file = `${directory}/${arquivo}`;
+    file2 = arquivo;
+    createJsonFile();
+  }
+}
+
+run();
