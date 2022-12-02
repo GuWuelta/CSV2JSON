@@ -85,11 +85,15 @@ function createJsonFile(arr, csv) {
 
 function run() {
   directoryFiles = fs.readdirSync(directory, "utf-8");
-  for (arquivo of directoryFiles) {
-    file = `${directory}/${arquivo}`;
-    file2 = arquivo;
+  for (item of directoryFiles) {
+    file = `${directory}/${item}`;
+    file2 = item;
     createJsonFile();
   }
 }
 
 run();
+
+/** DÚVIDAS
+ * -> Tentei alterar o nome das variáveis "file" e "file2" para algo mais claro, porém afetava na função CheckFile().
+ */
