@@ -15,20 +15,20 @@ function checkDirectory(directory) {
   return directoryExists;
 }
 
-function checkFile(file) {
+function checkFile(fileWithPath) {
   let fileExists = false;
-  if (fs.existsSync(file)) {
-    console.log(`Arquivo "${file}" encontrado!`);
+  if (fs.existsSync(fileWithPath)) {
+    console.log(`Arquivo "${fileWithPath}" encontrado!`);
     return (fileExists = true);
   }
-  console.log(`Arquivo "${file}" não encontrado!`);
+  console.log(`Arquivo "${fileWithPath}" não encontrado!`);
   return fileExists;
 }
 
-function checkFileExtension(file) {
-  let fileExists = checkFile(file);
+function checkFileExtension(fileWithPath) {
+  let fileExists = checkFile(fileWithPath);
   if (fileExists === true) {
-    if (path.extname(file) != ".csv") {
+    if (path.extname(fileWithPath) != ".csv") {
       console.log("O arquivo não é csv!");
       return (fileExists = false);
     }
@@ -39,11 +39,11 @@ function checkFileExtension(file) {
 function readFile(directoryExists, fileExists) {
   directoryExists = checkDirectory(directory);
 
-  if (directoryExists) fileExists = checkFileExtension(file);
+  if (directoryExists) fileExists = checkFileExtension(fileWithPath);
 
   if (!fileExists) return null;
 
-  const csv = fs.readFileSync(file, "utf-8");
+  const csv = fs.readFileSync(fileWithPath, "utf-8");
   return csv;
 }
 
@@ -75,10 +75,10 @@ function createJsonFile(arr, csv) {
   if (arr === null) return console.log("Houve um erro na conversão!");
 
   console.log(
-    `O arquivo '${file2}' foi convertido para o formato JSON e adicionado na pasta 'output'!\n`
+    `O arquivo '${file}' foi convertido para o formato JSON e adicionado na pasta 'output'!\n`
   );
   return fs.writeFileSync(
-    `./output/${file2.split(".csv")}.json`,
+    `./output/${file.split(".csv")}.json`,
     JSON.stringify(arr, null, 2)
   );
 }
@@ -86,14 +86,10 @@ function createJsonFile(arr, csv) {
 function run() {
   directoryFiles = fs.readdirSync(directory, "utf-8");
   for (item of directoryFiles) {
-    file = `${directory}/${item}`;
-    file2 = item;
+    fileWithPath = `${directory}/${item}`;
+    file = item;
     createJsonFile();
   }
 }
 
 run();
-
-/** DÚVIDAS
- * -> Tentei alterar o nome das variáveis "file" e "file2" para algo mais claro, porém afetava na função CheckFile().
- */
