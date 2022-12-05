@@ -1,0 +1,22 @@
+{
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  },
+  "name": "csv2json",
+  "description": "Primeiro desafio proposto pelo programa GCB Academy: Desenvolver um programa capaz de ler um arquivo de formato .csv e converter o mesmo para formato .json",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuWuelta/CSV2JSON.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuWuelta/CSV2JSON/issues"
+  },
+  "homepage": "https://github.com/GuWuelta/CSV2JSON#readme"
+}
