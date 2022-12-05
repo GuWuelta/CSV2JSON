@@ -1,37 +1,36 @@
 const fs = require("fs");
 const path = require("path");
+//const directory = path.join(__dirname, "./input");
 const directory = "./input";
 let file;
-let directoryFiles;
 
 function checkDirectory(directory) {
   let directoryExists = false;
-  if (fs.existsSync(directory)) {
-    console.log(`Diretório "${directory}" encontrado!`);
-    return (directoryExists = true);
+  if (!fs.existsSync(directory)) {
+    console.log(`Diretório "${directory}" não encontrado!`);
+    return directoryExists;
   }
 
-  console.log(`Diretório "${directory}" não encontrado!`);
-  return directoryExists;
+  console.log(`Diretório "${directory}" encontrado!`);
+  return (directoryExists = true);
 }
 
 function checkFile(fileWithPath) {
   let fileExists = false;
-  if (fs.existsSync(fileWithPath)) {
-    console.log(`Arquivo "${fileWithPath}" encontrado!`);
-    return (fileExists = true);
+  if (!fs.existsSync(fileWithPath)) {
+    console.log(`Arquivo "${fileWithPath}" não encontrado!`);
+    return fileExists;
   }
-  console.log(`Arquivo "${fileWithPath}" não encontrado!`);
-  return fileExists;
+  console.log(`Arquivo "${fileWithPath}" encontrado!`);
+  return (fileExists = true);
 }
 
 function checkFileExtension(fileWithPath) {
   let fileExists = checkFile(fileWithPath);
-  if (fileExists === true) {
-    if (path.extname(fileWithPath) != ".csv") {
-      console.log("O arquivo não é csv!");
-      return (fileExists = false);
-    }
+  const isCsvFile = path.extname(fileWithPath) === ".csv"
+  if (fileExists && !isCsvFile) {
+    console.log("O arquivo não é csv!");
+    return (fileExists = false);
   }
   return fileExists;
 }
@@ -54,25 +53,23 @@ function convertFile(csv) {
 
   const lines = csv.split("\n");
   const headers = lines[0].split(",");
-  const data = lines.slice(1).map((linha) => linha.split(","));
+  const data = lines.slice(1).map((line) => line.split(","));
   data.pop();
 
-  const arr = [];
-
-  for (const row of data) {
-    const jsonObj = {};
-    for (const col in row) {
-      jsonObj[headers[col]] = row[col];
-    }
-    arr.push(jsonObj);
-  }
-  return arr;
+  const json = data.reduce((acc, row) => {
+    const jsonObj = row.reduce((acc, cur, idx) => {
+      acc[headers[idx]] = cur;
+      return acc;
+    }, {});
+    return [...acc, jsonObj];
+  }, []);
+  return json;
 }
 
 function createJsonFile(arr, csv) {
   arr = convertFile(csv);
 
-  if (arr === null) return console.log("Houve um erro na conversão!");
+  if (!arr) return console.log("Houve um erro na conversão!");
 
   console.log(
     `O arquivo '${file}' foi convertido para o formato JSON e adicionado na pasta 'output'!\n`
@@ -84,12 +81,12 @@ function createJsonFile(arr, csv) {
 }
 
 function run() {
-  directoryFiles = fs.readdirSync(directory, "utf-8");
-  for (item of directoryFiles) {
+  const directoryFiles = fs.readdirSync(directory, "utf-8");
+  directoryFiles.forEach((item) => {
     fileWithPath = `${directory}/${item}`;
     file = item;
     createJsonFile();
-  }
+  });
 }
 
 run();
