@@ -1,5 +1,5 @@
-import fs from "fs"
-import path from "path"
+const fs = require('fs');
+const path = require('path');
 
 //const directory = path.join(__dirname, "./input");
 const directory = "./input";
@@ -75,7 +75,7 @@ function createJsonFile(arr, csv) {
     `O arquivo '${file}' foi convertido para o formato JSON e adicionado na pasta 'output'!\n`
   );
   return fs.writeFileSync(
-    `./output/${file.split(".csv")}.json`,
+    `./output/${file.replace(".csv", "")}.json`,
     JSON.stringify(arr, null, 2)
   );
 }
