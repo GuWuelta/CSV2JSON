@@ -1,28 +1,28 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs"
+import path from "path"
+
 //const directory = path.join(__dirname, "./input");
 const directory = "./input";
 let file;
 
 function checkDirectory(directory) {
-  let directoryExists = false;
-  if (!fs.existsSync(directory)) {
+  let directoryExists = fs.existsSync(directory)
+  if (!directoryExists) {
     console.log(`Diretório "${directory}" não encontrado!`);
     return directoryExists;
   }
-
   console.log(`Diretório "${directory}" encontrado!`);
-  return (directoryExists = true);
+  return directoryExists;
 }
 
 function checkFile(fileWithPath) {
-  let fileExists = false;
-  if (!fs.existsSync(fileWithPath)) {
+  let fileExists = fs.existsSync(fileWithPath);
+  if (!fileExists) {
     console.log(`Arquivo "${fileWithPath}" não encontrado!`);
     return fileExists;
   }
   console.log(`Arquivo "${fileWithPath}" encontrado!`);
-  return (fileExists = true);
+  return fileExists
 }
 
 function checkFileExtension(fileWithPath) {
