@@ -15,32 +15,32 @@ Como dito acima, o projeto serve para converter arquivos de extensão CSV em arq
 
 
 ## 💾 Etapas da conversão
-:heavy_check_mark: Receber um diretório
-:heavy_check_mark: Validar se o diretório existe
-:heavy_check_mark: Acessar o diretório
-:heavy_check_mark: Ler arquivo do diretório
-:heavy_check_mark: Validar se arquivo é .csv
-:heavy_check_mark: Converter arquivo para formato .json
+:heavy_check_mark: Receber um diretório\
+:heavy_check_mark: Validar se o diretório existe\
+:heavy_check_mark: Acessar o diretório\
+:heavy_check_mark: Ler arquivo do diretório\
+:heavy_check_mark: Validar se arquivo é .csv\
+:heavy_check_mark: Converter arquivo para formato .json\
 :heavy_check_mark: Enviar novo arquivo .json para pasta output
 
 
 ## 🎯 Etapas do desenvolvimento do projeto
 
-:heavy_check_mark: Preparar o ambiente
-:heavy_check_mark: Criar uma pasta de entrada
-:heavy_check_mark: Criar uma pasta de saída
-:heavy_check_mark: Colocar os arquivos CSV na pasta criada
-:heavy_check_mark: Pensar e estruturar as funções:
-:heavy_check_mark: Tratagem se não existir o diretório
-:heavy_check_mark: Acessar o diretório com os arquivos .csv
-:heavy_check_mark: Tratagem se não tiver arquivos .csv
-:heavy_check_mark: Leitura do arquivo com fs  
-:heavy_check_mark: Transformar em uma string 
-:heavy_check_mark: Separar em uma array
-:heavy_check_mark: Separar os valores dos Headers em um Array
-:heavy_check_mark: Separar os dados
-:heavy_check_mark: Método da conversão
-:heavy_check_mark: Criar e escrever os arquivo .json
+:heavy_check_mark: Preparar o ambiente\
+:heavy_check_mark: Criar uma pasta de entrada\
+:heavy_check_mark: Criar uma pasta de saída\
+:heavy_check_mark: Colocar os arquivos CSV na pasta criada\
+:heavy_check_mark: Pensar e estruturar as funções:\
+:heavy_check_mark: Tratagem se não existir o diretório\
+:heavy_check_mark: Acessar o diretório com os arquivos .csv\
+:heavy_check_mark: Tratagem se não tiver arquivos .csv\
+:heavy_check_mark: Leitura do arquivo com fs\
+:heavy_check_mark: Transformar em uma string\
+:heavy_check_mark: Separar em uma array\
+:heavy_check_mark: Separar os valores dos Headers em um Array\
+:heavy_check_mark: Separar os dados\
+:heavy_check_mark: Método da conversão\
+:heavy_check_mark: Criar e escrever os arquivo .json\
 :heavy_check_mark: Enviar arquivo criado para pasta de saída
 
 
