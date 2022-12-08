@@ -47,7 +47,7 @@ function checkFileExtension(file: string): boolean {
 
 function readFile(filePath: string): string {
   const csvBuffer = readFileSync(filePath);
-  const csv = csvBuffer.toString();
+  const csv = csvBuffer.toString().replace(";", ",");
   return csv;
 }
 

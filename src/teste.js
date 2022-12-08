@@ -53,7 +53,7 @@ function checkFileExtension(file) {
 }
 function readFile(filePath) {
     var csvBuffer = (0, fs_1.readFileSync)(filePath);
-    var csv = csvBuffer.toString();
+    var csv = csvBuffer.toString().replace(";", ",");
     return csv;
 }
 function formatFileToJSON(csv) {
