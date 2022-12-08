@@ -7,7 +7,6 @@
   "description": "Primeiro desafio proposto pelo programa GCB Academy: Desenvolver um programa capaz de ler um arquivo de formato .csv e converter o mesmo para formato .json",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/GuWuelta/CSV2JSON/issues"
   },
-  "homepage": "https://github.com/GuWuelta/CSV2JSON#readme"
+  "homepage": "https://github.com/GuWuelta/CSV2JSON#readme",
+  "dependencies": {
+    "nodejs": "^0.0.0"
+  }
 }

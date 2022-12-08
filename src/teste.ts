@@ -1,34 +1,98 @@
-import fs from "fs";
-import path from "path";
+import { existsSync, readFileSync, writeFileSync, readdirSync } from "fs";
+import { extname } from "path";
 
-const directory: string = "./input";
+type JsonObjectProps = Record<string, unknown>;
+
+const directory = "./input";
+const directoryFiles = readdirSync(directory, "utf-8");
+
+let filePath: string;
+let file: string;
 
 function checkDirectory(directory: string): boolean {
-  let directoryExists: boolean = false;
-  if (!fs.existsSync(directory)) {
-    console.error("Directory does not exist: " + directory);
+  let directoryExists = existsSync(directory);
+  try {
+    if (!directoryExists) {
+      throw new Error("Directory does not exist");
+    }
     return directoryExists;
+  } catch (error) {
+    throw error;
   }
-  console.log("Directory exists: " + directory);
-  return (directoryExists = true);
 }
 
-function checkFile(fileWithPath: string): boolean {
-  let fileExists: boolean = false;
-  if (!fs.existsSync(fileWithPath)) {
-    console.error("File does not exist: " + directory);
+function checkFile(file: string): boolean {
+  let fileExists = existsSync(file);
+  try {
+    if (!fileExists) {
+      throw new Error("File does not exist");
+    }
     return fileExists;
+  } catch (error) {
+    throw error;
   }
-  console.log("File exists: " + directory);
-  return (fileExists = true);
 }
 
-function checkFileExtension(fileWithPath: string): boolean {
-  let fileExists: boolean = checkFile(fileWithPath);
-  const fileExtension: string = path.extname(fileWithPath);
-  if (fileExtension != ".csv") throw new Error("File is not csv");
-
-  return fileExists;
+function checkFileExtension(file: string): boolean {
+  const fileIsCsv = extname(file) === ".csv";
+  try {
+    if (!fileIsCsv) {
+      throw new Error("File is not a CSV");
+    }
+    return fileIsCsv;
+  } catch (error) {
+    throw error;
+  }
 }
 
-// function readFile(directoryExists: boolean);
+function readFile(filePath: string): string {
+  const csvBuffer = readFileSync(filePath);
+  const csv = csvBuffer.toString();
+  return csv;
+}
+
+function formatFileToJSON(csv: string): JsonObjectProps[] {
+  const lines = csv.split("\n");
+  const headers = lines[0].split(",");
+  const data = lines
+    .slice(1)
+    .filter(Boolean)
+    .map((line) => line.split(","));
+
+  const json = data.reduce<JsonObjectProps[]>((acc, row) => {
+    const jsonObj = row.reduce<JsonObjectProps>((acc, cur, idx) => {
+      acc[headers[idx]] = cur;
+      return acc;
+    }, {});
+    return [...acc, jsonObj];
+  }, []);
+  return json;
+}
+
+function writeJsonFile(json: JsonObjectProps[]): void {
+  writeFileSync(
+    `./output/${file.replace(".csv", "")}.json`,
+    JSON.stringify(json, null, 2)
+  );
+}
+
+function run(): void {
+  const directoryExists = checkDirectory(directory);
+  const fileExists = checkFile(`${directory}/${file}`);
+  const isCsvFile = checkFileExtension(file);
+  if (directoryExists && fileExists && isCsvFile) {
+    const csv = readFile(filePath);
+    const json = formatFileToJSON(csv);
+    writeJsonFile(json);
+  }
+}
+
+function convertAllFiles(): void {
+  directoryFiles.forEach((item: string) => {
+    file = item;
+    filePath = directory + "/" + file;
+    run();
+  });
+}
+
+convertAllFiles();

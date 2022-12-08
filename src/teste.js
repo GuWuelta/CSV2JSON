@@ -1,30 +1,95 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
-const directory = "./input";
+exports.__esModule = true;
+var fs_1 = require("fs");
+var path_1 = require("path");
+var directory = "./input";
+var directoryFiles = (0, fs_1.readdirSync)(directory, "utf-8");
+var filePath;
+var file;
 function checkDirectory(directory) {
-    let directoryExists = false;
-    if (!fs_1.default.existsSync(directory)) {
-        console.error("Directory does not exist: " + directory);
+    var directoryExists = (0, fs_1.existsSync)(directory);
+    try {
+        if (!directoryExists) {
+            throw new Error("Directory does not exist");
+        }
         return directoryExists;
     }
-    console.log("Directory exists: " + directory);
-    return (directoryExists = true);
+    catch (error) {
+        throw error;
+    }
 }
-function checkFile(fileWithPath) {
-    let fileExists = false;
-    if (!fs_1.default.existsSync(fileWithPath)) {
-        console.error("File does not exist: " + directory);
+function checkFile(file) {
+    var fileExists = (0, fs_1.existsSync)(file);
+    try {
+        if (!fileExists) {
+            throw new Error("File does not exist");
+        }
         return fileExists;
     }
-    console.log("File exists: " + directory);
-    return (fileExists = true);
+    catch (error) {
+        throw error;
+    }
 }
-function checkFileExtension(fileWithPath, fileExists) {
-    fileExists = checkFile(fileWithPath);
-    const fileExtension = path_1.default.extname(fileWithPath);
+function checkFileExtension(file) {
+    var fileIsCsv = (0, path_1.extname)(file) === ".csv";
+    try {
+        if (!fileIsCsv) {
+            throw new Error("File is not a CSV");
+        }
+        return fileIsCsv;
+    }
+    catch (error) {
+        throw error;
+    }
 }
+function readFile(filePath) {
+    var csvBuffer = (0, fs_1.readFileSync)(filePath);
+    var csv = csvBuffer.toString();
+    return csv;
+}
+function formatFileToJSON(csv) {
+    var lines = csv.split("\n");
+    var headers = lines[0].split(",");
+    var data = lines
+        .slice(1)
+        .filter(Boolean)
+        .map(function (line) { return line.split(","); });
+    var json = data.reduce(function (acc, row) {
+        var jsonObj = row.reduce(function (acc, cur, idx) {
+            acc[headers[idx]] = cur;
+            return acc;
+        }, {});
+        return __spreadArray(__spreadArray([], acc, true), [jsonObj], false);
+    }, []);
+    return json;
+}
+function writeJsonFile(json) {
+    (0, fs_1.writeFileSync)("./output/".concat(file.replace(".csv", ""), ".json"), JSON.stringify(json, null, 2));
+}
+function run() {
+    var directoryExists = checkDirectory(directory);
+    var fileExists = checkFile("".concat(directory, "/").concat(file));
+    var isCsvFile = checkFileExtension(file);
+    if (directoryExists && fileExists && isCsvFile) {
+        var csv = readFile(filePath);
+        var json = formatFileToJSON(csv);
+        writeJsonFile(json);
+    }
+}
+function convertAllFiles() {
+    directoryFiles.forEach(function (item) {
+        file = item;
+        filePath = directory + "/" + file;
+        run();
+    });
+}
+convertAllFiles();
