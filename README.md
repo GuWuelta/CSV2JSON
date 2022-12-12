@@ -44,7 +44,6 @@ Como dito acima, o projeto serve para converter arquivos de extensão CSV em arq
 
 ## 🚀 Tecnologias
 
-- [JavaScript](https://www.javascript.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Node.js](https://nodejs.org/en/)
 
