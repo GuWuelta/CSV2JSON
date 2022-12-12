@@ -54,12 +54,12 @@ function readFile(filePath: string): string {
 function formatFileToJSON(csv: string): JsonObjectProps[] {
   const lines = csv.split("\n");
   const headers = lines[0].split(",");
-  const data = lines
+  const content = lines
     .slice(1)
     .filter(Boolean)
     .map((line) => line.split(","));
 
-  const json = data.reduce<JsonObjectProps[]>((acc, row) => {
+  const json = content.reduce<JsonObjectProps[]>((acc, row) => {
     const jsonObj = row.reduce<JsonObjectProps>((acc, cur, idx) => {
       acc[headers[idx]] = cur;
       return acc;
